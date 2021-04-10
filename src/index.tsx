@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, FlatList, StyleSheet, Text, View} from 'react-native';
 
 const App: React.FC = () => {
   const handleAddEntry = useCallback(() => {
-    alert('teste');
+    Alert.alert('teste');
   }, []);
 
   return (
