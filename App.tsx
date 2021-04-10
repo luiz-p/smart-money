@@ -1,115 +1,51 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import React, {useCallback} from 'react';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 
- import React from 'react';
- import {
-   SafeAreaView,
-   ScrollView,
-   StatusBar,
-   StyleSheet,
-   Text,
-   useColorScheme,
-   View,
- } from 'react-native';
+const App: React.FC = () => {
+  const handleAddEntry = useCallback(() => {
+    alert('teste');
+  }, []);
 
- import {
-   Colors,
-   DebugInstructions,
-   Header,
-   LearnMoreLinks,
-   ReloadInstructions,
- } from 'react-native/Libraries/NewAppScreen';
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Saldo: R$ 2.102,45</Text>
+      <Button onPress={handleAddEntry} title="Adicionar" />
 
- const Section: React.FC<{
-   title: string;
- }> = ({children, title}) => {
-   const isDarkMode = useColorScheme() === 'dark';
-   return (
-     <View style={styles.sectionContainer}>
-       <Text
-         style={[
-           styles.sectionTitle,
-           {
-             color: isDarkMode ? Colors.white : Colors.black,
-           },
-         ]}>
-         {title}
-       </Text>
-       <Text
-         style={[
-           styles.sectionDescription,
-           {
-             color: isDarkMode ? Colors.light : Colors.dark,
-           },
-         ]}>
-         {children}
-       </Text>
-     </View>
-   );
- };
+      <Text style={styles.title}>Categorias</Text>
+      <FlatList
+        data={[
+          {key: 'Alimentação: $200'},
+          {key: 'Combustível: $12'},
+          {key: 'Aluguel: $120'},
+          {key: 'Lazer: $250'},
+          {key: 'Outros: $1200'},
+        ]}
+        renderItem={({item}) => <Text>{item.key}</Text>}
+      />
 
- const App = () => {
-   const isDarkMode = useColorScheme() === 'dark';
+      <Text style={styles.title}>Últimos Lançamentos</Text>
+      <FlatList
+        data={[
+          {key: 'Padaria Asa Branca: $10'},
+          {key: 'Supermercado Isadora: $190'},
+          {key: 'Posto Ipiranga: $190'},
+        ]}
+        renderItem={({item}) => <Text>{item.key}</Text>}
+      />
+    </View>
+  );
+};
 
-   const backgroundStyle = {
-     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-   };
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});
 
-   return (
-     <SafeAreaView style={backgroundStyle}>
-       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-       <ScrollView
-         contentInsetAdjustmentBehavior="automatic"
-         style={backgroundStyle}>
-         <Header />
-         <View
-           style={{
-             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-           }}>
-           <Section title="Step One">
-             Edit <Text style={styles.highlight}>App.js</Text> to change this
-             screen and then come back to see your edits.
-           </Section>
-           <Section title="See Your Changes">
-             <ReloadInstructions />
-           </Section>
-           <Section title="Debug">
-             <DebugInstructions />
-           </Section>
-           <Section title="Learn More">
-             Read the docs to discover what to do next:
-           </Section>
-           <LearnMoreLinks />
-         </View>
-       </ScrollView>
-     </SafeAreaView>
-   );
- };
-
- const styles = StyleSheet.create({
-   sectionContainer: {
-     marginTop: 32,
-     paddingHorizontal: 24,
-   },
-   sectionTitle: {
-     fontSize: 24,
-     fontWeight: '600',
-   },
-   sectionDescription: {
-     marginTop: 8,
-     fontSize: 18,
-     fontWeight: '400',
-   },
-   highlight: {
-     fontWeight: '700',
-   },
- });
-
- export default App;
+export default App;
