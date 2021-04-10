@@ -1,6 +1,8 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
+
 import BalancePanel from '../../components/BalancePanel';
+import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
 
 const Main: React.FC = () => {
@@ -8,6 +10,7 @@ const Main: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <BalancePanel />
       <EntrySummary />
+      <EntryList />
     </SafeAreaView>
   );
 };

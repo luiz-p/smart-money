@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 
-import BalancePanelLabel from '../BalancePanelLabel';
 import BalancePanelChart from '../BalancePanelChart';
+import BalancePanelLabel from '../BalancePanelLabel';
 
 const BalancePanel: React.FC = () => {
   return (
@@ -15,9 +15,7 @@ const BalancePanel: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
 });
 
 export default BalancePanel;

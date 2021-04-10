@@ -1,18 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 const EntrySummaryChart: React.FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text>EntrySumaryChart</Text>
-    </View>
-  );
+  return <View style={styles.container} />;
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
 });
 
 export default EntrySummaryChart;

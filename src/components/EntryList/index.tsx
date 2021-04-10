@@ -1,17 +1,17 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-const EntrySummaryList: React.FC = () => {
+import EntryListItem from '../EntryListItem';
+
+const EntryList: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Categorias</Text>
+    <View>
+      <Text style={styles.title}>Últimos Lançamentos</Text>
       <FlatList
         data={[
-          {key: 'Alimentação: $200'},
-          {key: 'Combustível: $12'},
-          {key: 'Aluguel: $120'},
-          {key: 'Lazer: $250'},
-          {key: 'Outros: $1200'},
+          {key: 'Padaria Asa Branca: $10'},
+          {key: 'Supermercado Isadora: $190'},
+          {key: 'Posto Ipiranga: $190'},
         ]}
         renderItem={({item}) => <Text>{item.key}</Text>}
       />
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EntrySummaryList;
+export default EntryList;
