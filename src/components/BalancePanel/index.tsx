@@ -4,10 +4,14 @@ import {StyleSheet, View} from 'react-native';
 import BalancePanelChart from '../BalancePanelChart';
 import BalancePanelLabel from '../BalancePanelLabel';
 
-const BalancePanel: React.FC = () => {
+interface BalancePanelProps {
+  currentBalance: number;
+}
+
+const BalancePanel: React.FC<BalancePanelProps> = ({currentBalance}) => {
   return (
     <View>
-      <BalancePanelLabel />
+      <BalancePanelLabel currentBalance={currentBalance} />
       <BalancePanelChart />
     </View>
   );

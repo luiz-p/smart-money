@@ -1,19 +1,27 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-const EntrySummaryList: React.FC = () => {
+interface EntrySummaryListProps {
+  entriesGrouped: {
+    key: string;
+    description: string;
+    amount: number;
+  }[];
+}
+
+const EntrySummaryList: React.FC<EntrySummaryListProps> = ({
+  entriesGrouped,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Categorias</Text>
       <FlatList
-        data={[
-          {key: 'Alimentação: $200'},
-          {key: 'Combustível: $12'},
-          {key: 'Aluguel: $120'},
-          {key: 'Lazer: $250'},
-          {key: 'Outros: $1200'},
-        ]}
-        renderItem={({item}) => <Text>{item.key}</Text>}
+        data={entriesGrouped}
+        renderItem={({item}) => (
+          <Text>
+            {item.description} - R${item.amount}
+          </Text>
+        )}
       />
     </View>
   );

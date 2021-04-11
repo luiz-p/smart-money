@@ -1,11 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-const BalancePanelLabel: React.FC = () => {
+interface BalancePanelLabelProps {
+  currentBalance: number;
+}
+
+const BalancePanelLabel: React.FC<BalancePanelLabelProps> = ({
+  currentBalance,
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Saldo atual</Text>
-      <Text style={styles.value}>R$ 2.102,45</Text>
+      <Text style={styles.value}>R$ {currentBalance}</Text>
     </View>
   );
 };

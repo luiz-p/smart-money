@@ -8,9 +8,11 @@ import BalanceLabel from '../../components/BalanceLabel';
 const NewEntry: React.FC = () => {
   const navigation = useNavigation();
 
+  const currentBalance = 2064.35;
+
   return (
     <View style={styles.container}>
-      <BalanceLabel />
+      <BalanceLabel currentBalance={currentBalance} />
 
       <View>
         <TextInput style={styles.input} />

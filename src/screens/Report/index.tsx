@@ -8,9 +8,11 @@ import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
 
 const Report: React.FC = () => {
+  const currentBalance = 2064.35;
+
   return (
     <View>
-      <BalanceLabel />
+      <BalanceLabel currentBalance={currentBalance} />
 
       <View>
         <Picker>
