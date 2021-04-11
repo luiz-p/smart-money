@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Button, SafeAreaView, StyleSheet} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -6,8 +6,6 @@ import {useNavigation} from '@react-navigation/native';
 import BalancePanel from '../../components/BalancePanel';
 import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
-
-import {saveEntry} from '../../services/Entries';
 
 const Main: React.FC = () => {
   const navigation = useNavigation();
@@ -26,18 +24,13 @@ const Main: React.FC = () => {
     {key: '3', description: 'Posto Ipiranga', amount: 290},
   ];
 
-  const handleSave = useCallback(() => {
-    saveEntry();
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <BalancePanel currentBalance={currentBalance} />
 
       <Button
         title="Adicionar"
-        // onPress={() => navigation.navigate('NewEntry')}
-        onPress={handleSave}
+        onPress={() => navigation.navigate('NewEntry')}
       />
 
       <EntrySummary entriesGrouped={entriesGrouped} />
