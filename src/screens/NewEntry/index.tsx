@@ -1,9 +1,13 @@
 import React from 'react';
 import {Button, StyleSheet, TextInput, View} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
+
 import BalanceLabel from '../../components/BalanceLabel';
 
 const NewEntry: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <BalanceLabel />
@@ -17,7 +21,7 @@ const NewEntry: React.FC = () => {
 
       <View>
         <Button title="Adicionar" onPress={() => {}} />
-        <Button title="Cancelar" onPress={() => {}} />
+        <Button title="Cancelar" onPress={() => navigation.goBack()} />
       </View>
     </View>
   );
