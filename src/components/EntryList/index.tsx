@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 
-import EntryListItem from '../EntryListItem';
+import IEntry from '../../interfaces/Entry';
+import {getEntries} from '../../services/Entries';
 
-interface EntryListProps {
-  entries: {
-    key: string;
-    description: string;
-    amount: number;
-  }[];
-}
+const EntryList: React.FC = () => {
+  const [entries, setEntries] = useState<
+    Realm.Results<IEntry & Realm.Object>
+  >();
 
-const EntryList: React.FC<EntryListProps> = ({entries}) => {
+  useEffect(() => {
+    (async () => {
+      const data = await getEntries();
+      setEntries(data);
+    })();
+    console.log('EntryList :: useEffect');
+  }, []);
+
   return (
     <View>
       <Text style={styles.title}>Últimos Lançamentos</Text>

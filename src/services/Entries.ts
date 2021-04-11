@@ -1,11 +1,22 @@
 import {Alert} from 'react-native';
 import Realm from 'realm';
 
+import IEntry from '../interfaces/Entry';
 import {getRealm} from './Realm';
 
 interface IValue {
   amount: number;
 }
+
+export const getEntries = async () => {
+  const realm = await getRealm();
+
+  const entries = realm.objects<IEntry>('Entry');
+
+  console.log('getEntries :: Entries ', entries);
+
+  return entries;
+};
 
 export const saveEntry = async (value: IValue) => {
   const realm = await getRealm();
