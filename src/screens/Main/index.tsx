@@ -1,14 +1,24 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {Button, SafeAreaView, StyleSheet} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 
 import BalancePanel from '../../components/BalancePanel';
 import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
 
 const Main: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <BalancePanel />
+
+      <Button
+        title="Adicionar"
+        onPress={() => navigation.navigate('NewEntry')}
+      />
+
       <EntrySummary />
       <EntryList />
     </SafeAreaView>
