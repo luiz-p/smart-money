@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -13,12 +13,17 @@ const EntryList: React.FC = () => {
     Realm.Results<IEntry & Realm.Object>
   >();
 
+  const loadEntries = useCallback(async () => {
+    const data = await getEntries();
+    setEntries(data);
+  }, []);
+
   useEffect(() => {
-    (async () => {
-      const data = await getEntries();
-      setEntries(data);
-    })();
-  }, [entries]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadEntries();
+    });
+    return unsubscribe;
+  }, [navigation, loadEntries]);
 
   return (
     <View>

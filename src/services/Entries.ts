@@ -2,7 +2,6 @@ import {Alert} from 'react-native';
 import Realm from 'realm';
 import {v4 as uuid} from 'uuid';
 
-// import {getUUID} from '../services/UUID';
 import IEntry from '../interfaces/Entry';
 import {getRealm} from './Realm';
 

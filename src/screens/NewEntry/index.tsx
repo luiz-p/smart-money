@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, Button, StyleSheet, TextInput, View} from 'react-native';
+import {Button, StyleSheet, TextInput, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
