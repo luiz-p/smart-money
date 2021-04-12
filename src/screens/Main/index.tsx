@@ -18,11 +18,6 @@ const Main: React.FC = () => {
     {key: '4', description: 'Teste', amount: 10},
     {key: '5', description: 'Teste mais caro', amount: 1990},
   ];
-  const entries = [
-    {key: '1', description: 'Padaria Asa Branca', amount: 10},
-    {key: '2', description: 'Supermercado Isadora', amount: 190},
-    {key: '3', description: 'Posto Ipiranga', amount: 290},
-  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,7 +29,7 @@ const Main: React.FC = () => {
       />
 
       <EntrySummary entriesGrouped={entriesGrouped} />
-      <EntryList entries={entries} />
+      <EntryList />
     </SafeAreaView>
   );
 };

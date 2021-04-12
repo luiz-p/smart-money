@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
 
 import IEntry from '../../interfaces/Entry';
 import {getEntries} from '../../services/Entries';
 
 const EntryList: React.FC = () => {
+  const navigation = useNavigation();
+
   const [entries, setEntries] = useState<
     Realm.Results<IEntry & Realm.Object>
   >();
@@ -14,18 +18,22 @@ const EntryList: React.FC = () => {
       const data = await getEntries();
       setEntries(data);
     })();
-    console.log('EntryList :: useEffect');
-  }, []);
+  }, [entries]);
 
   return (
     <View>
       <Text style={styles.title}>Últimos Lançamentos</Text>
       <FlatList
+        // TODO: item.entryAt is Non-serializable value
         data={entries}
         renderItem={({item}) => (
-          <Text>
-            {item.description}: R${item.amount}
-          </Text>
+          <>
+            <Text>R${item.amount}</Text>
+            <Button
+              title={item.id}
+              onPress={() => navigation.navigate('NewEntry', {entry: item})}
+            />
+          </>
         )}
       />
     </View>

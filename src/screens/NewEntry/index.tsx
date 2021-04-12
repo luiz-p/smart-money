@@ -1,26 +1,59 @@
-import React, {useCallback, useState} from 'react';
-import {Button, StyleSheet, TextInput, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Alert, Button, StyleSheet, TextInput, View} from 'react-native';
+import {v4 as uuid} from 'uuid';
 
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
-import {saveEntry} from '../../services/Entries';
+import IEntry from '../../interfaces/Entry';
+import {deleteEntry, saveEntry} from '../../services/Entries';
+
+type ParamList = {
+  Entry: ParamListItem;
+};
+
+interface ParamListItem {
+  entry: IEntry;
+}
 
 const NewEntry: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<ParamList, 'Entry'>>();
 
   const currentBalance = 2064.35;
 
-  const [amount, setAmount] = useState('0.00');
+  const [entry, setEntry] = useState<IEntry>({
+    id: uuid(),
+    amount: 0,
+    entryAt: String(new Date()),
+  });
+  const [amount, setAmount] = useState<string>('0');
+
+  const goBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   const handleSave = useCallback(() => {
-    const value = {
+    const data = {
       amount: parseFloat(amount),
     };
 
-    console.log('NewEntry :: save: ', value);
-    saveEntry(value);
-  }, [amount]);
+    saveEntry(data, entry);
+
+    goBack();
+  }, [amount, entry, goBack]);
+
+  const handleDelete = useCallback(() => {
+    deleteEntry(entry);
+    goBack();
+  }, [entry, goBack]);
+
+  useEffect(() => {
+    if (route?.params?.entry) {
+      setEntry(route.params.entry);
+      setAmount(`${route.params.entry.amount}`);
+    }
+  }, [route]);
 
   return (
     <View style={styles.container}>
@@ -39,7 +72,8 @@ const NewEntry: React.FC = () => {
 
       <View>
         <Button title="Adicionar" onPress={handleSave} />
-        <Button title="Cancelar" onPress={() => navigation.goBack()} />
+        <Button title="Excluir" onPress={handleDelete} />
+        <Button title="Cancelar" onPress={goBack} />
       </View>
     </View>
   );

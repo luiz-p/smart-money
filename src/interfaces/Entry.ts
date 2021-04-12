@@ -1,5 +1,12 @@
 export default interface IEntry {
-  key: string;
-  description: string;
-  amount: number;
+  id: string;
+  description?: string;
+  amount: string | number;
+  entryAt: string;
+  latitude?: number;
+  longitude?: number;
+  address?: string;
+  photo?: string;
+  isInit?: boolean;
+  category?: string;
 }

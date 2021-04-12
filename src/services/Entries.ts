@@ -1,6 +1,8 @@
 import {Alert} from 'react-native';
 import Realm from 'realm';
+import {v4 as uuid} from 'uuid';
 
+// import {getUUID} from '../services/UUID';
 import IEntry from '../interfaces/Entry';
 import {getRealm} from './Realm';
 
@@ -13,33 +15,40 @@ export const getEntries = async () => {
 
   const entries = realm.objects<IEntry>('Entry');
 
-  console.log('getEntries :: Entries ', entries);
-
   return entries;
 };
 
-export const saveEntry = async (value: IValue) => {
+export const saveEntry = async (value: IValue, entry: IEntry) => {
   const realm = await getRealm();
   let data = {};
-  const {amount} = value;
 
   try {
     realm.write(() => {
       data = {
-        id: 'ABCDE',
-        amount: amount,
-        entryAt: new Date(),
+        id: entry.id || uuid(),
+        amount: value.amount || entry.amount,
+        entryAt: entry.entryAt || String(new Date()),
         isInit: false,
       };
 
       realm.create('Entry', data, Realm.UpdateMode.All);
     });
-
-    console.log('saveEntry :: data: ', JSON.stringify(data));
   } catch (error) {
     console.error('saveEntry :: error on save object: ', JSON.stringify(data));
     Alert.alert('Erro ao salvar os dados de lançamento.');
   }
 
   return data;
+};
+
+export const deleteEntry = async (entry: IEntry) => {
+  const realm = await getRealm();
+
+  try {
+    realm.write(() => {
+      realm.delete(entry);
+    });
+  } catch (error) {
+    Alert.alert('Erro ao excluir o lançamento!');
+  }
 };
