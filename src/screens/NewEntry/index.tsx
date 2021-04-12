@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, StyleSheet, TextInput, View} from 'react-native';
+import {Button, LogBox, StyleSheet, TextInput, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -7,6 +7,11 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import BalanceLabel from '../../components/BalanceLabel';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
+
+// TODO: route.params.entry is Non-serializable value
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 type ParamList = {
   Entry: ParamListItem;
