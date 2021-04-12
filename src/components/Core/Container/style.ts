@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Colors from '../../utils/Colors';
+import Colors from '../../../utils/Colors';
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   title: {
-    fontSize: 12,
+    fontSize: 14,
     color: Colors.white,
     marginBottom: 5,
   },

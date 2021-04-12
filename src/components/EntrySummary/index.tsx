@@ -1,10 +1,8 @@
 import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
 
+import Container from '../Core/Container';
 import EntrySummaryChart from '../EntrySummaryChart';
 import EntrySummaryList from '../EntrySummaryList';
-import styles from './style';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const EntrySummary: React.FC = () => {
   const entriesGrouped = [
@@ -16,19 +14,14 @@ const EntrySummary: React.FC = () => {
   ];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Categorias</Text>
+    <Container
+      title="Categorias"
+      actionLabelText="Últimos 7 dias"
+      actionButtonText="Ver mais"
+      onPressActionButton={() => {}}>
       <EntrySummaryChart />
       <EntrySummaryList entriesGrouped={entriesGrouped} />
-
-      <View style={styles.actionContainer}>
-        <Text style={styles.actionLabel}>Últimos 7 dias</Text>
-        <TouchableOpacity style={styles.actionButton}>
-          <Icon name="insert-chart" style={styles.actionButtonIcon} />
-          <Text style={styles.actionButtonText}>Ver mais</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </Container>
   );
 };
 
