@@ -29,6 +29,14 @@ const NewEntry: React.FC = () => {
   });
   const [amount, setAmount] = useState<string>('0');
 
+  const isValid = useCallback(() => {
+    if (parseFloat(amount) !== 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [amount]);
+
   const goBack = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
@@ -71,7 +79,12 @@ const NewEntry: React.FC = () => {
       </View>
 
       <View>
-        <Button title="Adicionar" onPress={handleSave} />
+        <Button
+          title="Adicionar"
+          onPress={() => {
+            isValid() && handleSave();
+          }}
+        />
         <Button title="Excluir" onPress={handleDelete} />
         <Button title="Cancelar" onPress={goBack} />
       </View>
