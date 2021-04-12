@@ -29,7 +29,7 @@ const EntryList: React.FC = () => {
     <View>
       <Text style={styles.title}>Últimos Lançamentos</Text>
       <FlatList
-        // TODO: item.entryAt is Non-serializable value
+        // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
         data={entries}
         renderItem={({item}) => (
           <>

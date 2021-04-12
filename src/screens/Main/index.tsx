@@ -1,15 +1,12 @@
 import React from 'react';
-import {Button, SafeAreaView, StyleSheet} from 'react-native';
-
-import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native';
 
 import BalancePanel from '../../components/BalancePanel';
 import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
+import styles from './style';
 
 const Main: React.FC = () => {
-  const navigation = useNavigation();
-
   const currentBalance = 2064.35;
   const entriesGrouped = [
     {key: '1', description: 'Padaria Asa Branca', amount: 10},
@@ -23,25 +20,10 @@ const Main: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <BalancePanel currentBalance={currentBalance} />
 
-      <Button
-        title="Adicionar"
-        onPress={() => navigation.navigate('NewEntry')}
-      />
-
       <EntrySummary entriesGrouped={entriesGrouped} />
       <EntryList />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  label: {
-    fontSize: 20,
-  },
-});
 
 export default Main;

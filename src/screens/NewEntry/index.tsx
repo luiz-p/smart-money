@@ -8,7 +8,7 @@ import BalanceLabel from '../../components/BalanceLabel';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 
-// TODO: route.params.entry is Non-serializable value
+// TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
