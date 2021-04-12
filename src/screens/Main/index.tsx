@@ -7,7 +7,6 @@ import EntrySummary from '../../components/EntrySummary';
 import styles from './style';
 
 const Main: React.FC = () => {
-  const currentBalance = 2064.35;
   const entriesGrouped = [
     {key: '1', description: 'Padaria Asa Branca', amount: 10},
     {key: '2', description: 'Supermercado Isadora', amount: 190},
@@ -18,7 +17,7 @@ const Main: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <BalancePanel currentBalance={currentBalance} />
+      <BalancePanel />
 
       <EntrySummary entriesGrouped={entriesGrouped} />
       <EntryList />

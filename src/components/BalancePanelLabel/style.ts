@@ -1,13 +1,16 @@
 import {StyleSheet} from 'react-native';
-
 import Colors from '../../utils/Colors';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.background,
+    alignItems: 'center',
   },
   label: {
-    fontSize: 20,
+    fontSize: 14,
+    color: Colors.white,
+  },
+  value: {
+    fontSize: 36,
+    color: Colors.white,
   },
 });

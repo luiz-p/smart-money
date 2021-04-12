@@ -1,33 +1,40 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useNavigation} from '@react-navigation/native';
 
+import Colors from '../../utils/Colors';
 import BalancePanelChart from '../BalancePanelChart';
 import BalancePanelLabel from '../BalancePanelLabel';
+import styles from './style';
 
 interface BalancePanelProps {
   currentBalance: number;
 }
 
-const BalancePanel: React.FC<BalancePanelProps> = ({currentBalance}) => {
+const BalancePanel: React.FC<BalancePanelProps> = () => {
   const navigation = useNavigation();
 
-  return (
-    <View>
-      <BalancePanelLabel currentBalance={currentBalance} />
-      <BalancePanelChart />
+  const currentBalance = 2064.35;
 
-      <Button
-        title="Adicionar"
-        onPress={() => navigation.navigate('NewEntry')}
-      />
+  return (
+    <View style={styles.container}>
+      <LinearGradient
+        colors={[Colors.violet, Colors.blue]}
+        style={styles.panel}>
+        <BalancePanelLabel currentBalance={currentBalance} />
+        <BalancePanelChart />
+      </LinearGradient>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('NewEntry')}>
+        <Icon name="add" size={32} color={Colors.white} />
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-});
 
 export default BalancePanel;

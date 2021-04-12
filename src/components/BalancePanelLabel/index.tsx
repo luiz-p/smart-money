@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
+import styles from './style';
 
 interface BalancePanelLabelProps {
   currentBalance: number;
@@ -15,19 +16,5 @@ const BalancePanelLabel: React.FC<BalancePanelLabelProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 18,
-    color: '#000',
-  },
-  value: {
-    fontSize: 22,
-    color: '#000',
-  },
-});
 
 export default BalancePanelLabel;
