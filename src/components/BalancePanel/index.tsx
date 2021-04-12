@@ -10,11 +10,7 @@ import BalancePanelChart from '../BalancePanelChart';
 import BalancePanelLabel from '../BalancePanelLabel';
 import styles from './style';
 
-interface BalancePanelProps {
-  currentBalance: number;
-}
-
-const BalancePanel: React.FC<BalancePanelProps> = () => {
+const BalancePanel: React.FC = () => {
   const navigation = useNavigation();
 
   const currentBalance = 2064.35;
