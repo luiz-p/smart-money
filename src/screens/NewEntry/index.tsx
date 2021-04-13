@@ -75,10 +75,7 @@ const NewEntry: React.FC = () => {
       <View>
         <NewEntryInput value={amount} onChangeText={setAmount} />
 
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setAmount(text)}
-        />
+        <TextInput style={styles.input} />
         <Button title="GPS" onPress={() => {}} />
         <Button title="Câmera" onPress={() => {}} />
       </View>

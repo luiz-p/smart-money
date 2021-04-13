@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
 import styles from './style';
 
@@ -10,7 +10,11 @@ interface NewEntryInputProps {
 
 const NewEntryInput: React.FC<NewEntryInputProps> = ({value, onChangeText}) => {
   return (
-    <View>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.debitButton}>
+        <Text style={styles.debitButtonText}>-</Text>
+        <Text style={styles.debitButtonText}>R$</Text>
+      </TouchableOpacity>
       <TextInputMask
         style={styles.input}
         type={'money'}
