@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -32,7 +32,7 @@ const EntryList: React.FC = () => {
       title="Últimos lançamentos"
       actionLabelText="Últimos 7 dias"
       actionButtonText="Ver mais"
-      onPressActionButton={() => {}}>
+      onPressActionButton={() => navigation.navigate('Report')}>
       <FlatList // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
         data={entries}
         keyExtractor={item => item.id}
@@ -47,15 +47,5 @@ const EntryList: React.FC = () => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {},
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-});
 
 export default EntryList;

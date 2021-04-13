@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 
 import Container from '../Core/Container';
@@ -5,6 +6,8 @@ import EntrySummaryChart from '../EntrySummaryChart';
 import EntrySummaryList from '../EntrySummaryList';
 
 const EntrySummary: React.FC = () => {
+  const navigation = useNavigation();
+
   const entriesGrouped = [
     {key: '1', description: 'Padaria Asa Branca', amount: 10},
     {key: '2', description: 'Supermercado Isadora', amount: 190},
@@ -18,7 +21,7 @@ const EntrySummary: React.FC = () => {
       title="Categorias"
       actionLabelText="Últimos 7 dias"
       actionButtonText="Ver mais"
-      onPressActionButton={() => {}}>
+      onPressActionButton={() => navigation.navigate('Report')}>
       <EntrySummaryChart />
       <EntrySummaryList entriesGrouped={entriesGrouped} />
     </Container>
