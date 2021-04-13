@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
+
 import styles from './style';
 
 interface NewEntryInputProps {

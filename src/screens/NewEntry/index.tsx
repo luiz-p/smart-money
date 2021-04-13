@@ -5,10 +5,10 @@ import {v4 as uuid} from 'uuid';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
+import NewEntryInput from '../../components/NewEntryInput';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
-import NewEntryInput from '../../components/NewEntryInput';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -35,7 +35,7 @@ const NewEntry: React.FC = () => {
   const [amount, setAmount] = useState<number>(0);
 
   const isValid = useCallback(() => {
-    if (parseFloat(amount) !== 0) {
+    if (amount !== 0) {
       return true;
     } else {
       return false;
@@ -48,7 +48,7 @@ const NewEntry: React.FC = () => {
 
   const handleSave = useCallback(() => {
     const data = {
-      amount: parseFloat(amount),
+      amount: amount,
     };
 
     saveEntry(data, entry);
@@ -64,7 +64,6 @@ const NewEntry: React.FC = () => {
   useEffect(() => {
     if (route?.params?.entry) {
       setEntry(route.params.entry);
-      console.log('AMOUNT :: ', route.params.entry.amount);
       setAmount(route.params.entry.amount);
     }
   }, [route]);

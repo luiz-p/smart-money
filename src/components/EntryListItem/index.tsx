@@ -30,7 +30,6 @@ const EntryListItem: React.FC<EntryListItemProps> = ({
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log(typeof entry.entryAt === 'number');
         navigation.navigate('NewEntry', {entry});
       }}>
       <View style={styles.container}>
