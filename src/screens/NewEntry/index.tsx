@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, LogBox, StyleSheet, TextInput, View} from 'react-native';
+import {Button, LogBox, TextInput, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -7,6 +7,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import BalanceLabel from '../../components/BalanceLabel';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
+import styles from './style';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -24,8 +25,6 @@ interface ParamListItem {
 const NewEntry: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<ParamList, 'Entry'>>();
-
-  const currentBalance = 2064.35;
 
   const [entry, setEntry] = useState<IEntry>({
     id: uuid(),
@@ -70,7 +69,7 @@ const NewEntry: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <BalanceLabel currentBalance={currentBalance} />
+      <BalanceLabel />
 
       <View>
         <TextInput
@@ -96,16 +95,5 @@ const NewEntry: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  input: {
-    borderColor: '#000',
-    borderWidth: 1,
-  },
-});
 
 export default NewEntry;
