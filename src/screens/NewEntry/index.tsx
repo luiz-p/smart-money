@@ -32,7 +32,7 @@ const NewEntry: React.FC = () => {
     amount: 0,
     entryAt: String(new Date()),
   });
-  const [amount, setAmount] = useState<string>('0');
+  const [amount, setAmount] = useState<number>(0);
 
   const isValid = useCallback(() => {
     if (parseFloat(amount) !== 0) {
@@ -64,7 +64,8 @@ const NewEntry: React.FC = () => {
   useEffect(() => {
     if (route?.params?.entry) {
       setEntry(route.params.entry);
-      setAmount(`${route.params.entry.amount}`);
+      console.log('AMOUNT :: ', route.params.entry.amount);
+      setAmount(route.params.entry.amount);
     }
   }, [route]);
 

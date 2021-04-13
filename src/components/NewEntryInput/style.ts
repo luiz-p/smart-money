@@ -17,6 +17,7 @@ export default StyleSheet.create({
   debitButtonText: {
     fontSize: 28,
     color: Colors.white,
+    minWidth: 8,
   },
   input: {
     flex: 1,

@@ -28,7 +28,11 @@ const EntryListItem: React.FC<EntryListItemProps> = ({
   const bulletColor = entry?.category?.color || Colors.blue;
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('NewEntry', entry)}>
+    <TouchableOpacity
+      onPress={() => {
+        console.log(typeof entry.entryAt === 'number');
+        navigation.navigate('NewEntry', {entry});
+      }}>
       <View style={styles.container}>
         <View style={styles.bullet}>
           <Svg height="50" width="30">
@@ -70,7 +74,7 @@ const EntryListItem: React.FC<EntryListItemProps> = ({
         </View>
 
         <View style={styles.amount}>
-          <Text style={styles.amountText}>R${entry.amount}</Text>
+          <Text style={styles.amountText}>{entry.amount}</Text>
         </View>
       </View>
     </TouchableOpacity>
