@@ -1,10 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import IEntry from '../../interfaces/Entry';
 
-const EntryListItem: React.FC = () => {
+interface EntryListItemProps {
+  entry: IEntry;
+}
+
+const EntryListItem: React.FC<EntryListItemProps> = ({entry}) => {
   return (
     <View>
-      <Text>EntryListItem</Text>
+      <Text>R${entry.amount}</Text>
     </View>
   );
 };

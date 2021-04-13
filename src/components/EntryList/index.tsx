@@ -1,10 +1,18 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Button, FlatList, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState, ReactElement} from 'react';
+import {FlatList, ListRenderItemInfo, StyleSheet} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
 import IEntry from '../../interfaces/Entry';
 import {getEntries} from '../../services/Entries';
+import Container from '../Core/Container';
+import EntryListItem from '../EntryListItem';
+
+const _renderItem = (
+  info: ListRenderItemInfo<IEntry>,
+): ReactElement<IEntry> => {
+  return <EntryListItem entry={info.item} />;
+};
 
 const EntryList: React.FC = () => {
   const navigation = useNavigation();
@@ -26,22 +34,17 @@ const EntryList: React.FC = () => {
   }, [navigation, loadEntries]);
 
   return (
-    <View>
-      <Text style={styles.title}>Últimos Lançamentos</Text>
-      <FlatList
-        // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
+    <Container
+      title="Últimos lançamentos"
+      actionLabelText="Últimos 7 dias"
+      actionButtonText="Ver mais"
+      onPressActionButton={() => {}}>
+      <FlatList // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
         data={entries}
-        renderItem={({item}) => (
-          <>
-            <Text>R${item.amount}</Text>
-            <Button
-              title={item.id}
-              onPress={() => navigation.navigate('NewEntry', {entry: item})}
-            />
-          </>
-        )}
+        keyExtractor={item => item.id}
+        renderItem={_renderItem}
       />
-    </View>
+    </Container>
   );
 };
 
