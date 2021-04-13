@@ -70,7 +70,7 @@ const EntryListItem: React.FC<EntryListItemProps> = ({
         </View>
 
         <View style={styles.amount}>
-          <Text style={styles.amountText}>R$10</Text>
+          <Text style={styles.amountText}>R${entry.amount}</Text>
         </View>
       </View>
     </TouchableOpacity>
