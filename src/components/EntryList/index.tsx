@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState, ReactElement} from 'react';
-import {FlatList, ListRenderItemInfo, StyleSheet} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList, StyleSheet} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -7,12 +7,6 @@ import IEntry from '../../interfaces/Entry';
 import {getEntries} from '../../services/Entries';
 import Container from '../Core/Container';
 import EntryListItem from '../EntryListItem';
-
-const _renderItem = (
-  info: ListRenderItemInfo<IEntry>,
-): ReactElement<IEntry> => {
-  return <EntryListItem entry={info.item} />;
-};
 
 const EntryList: React.FC = () => {
   const navigation = useNavigation();
@@ -42,7 +36,13 @@ const EntryList: React.FC = () => {
       <FlatList // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
         data={entries}
         keyExtractor={item => item.id}
-        renderItem={_renderItem}
+        renderItem={({item, index}) => (
+          <EntryListItem
+            entry={item}
+            isFirstItem={index === 0}
+            isLastItem={entries?.length ? index === entries.length - 1 : false}
+          />
+        )}
       />
     </Container>
   );

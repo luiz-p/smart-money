@@ -1,3 +1,5 @@
+import ICategory from './Category';
+
 export default interface IEntry {
   id: string;
   description?: string;
@@ -8,5 +10,5 @@ export default interface IEntry {
   address?: string;
   photo?: string;
   isInit?: boolean;
-  category?: string;
+  category?: ICategory;
 }
