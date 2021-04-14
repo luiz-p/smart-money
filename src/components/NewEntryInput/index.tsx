@@ -6,25 +6,32 @@ import styles from './style';
 
 interface NewEntryInputProps {
   value: number;
+  onChangeDebit: React.Dispatch<React.SetStateAction<number>>;
   onChangeText?: (text: number) => void;
 }
 
-const NewEntryInput: React.FC<NewEntryInputProps> = ({value, onChangeText}) => {
+const NewEntryInput: React.FC<NewEntryInputProps> = ({
+  value,
+  onChangeDebit,
+  onChangeText,
+}) => {
   const [debit, setDebit] = useState(0);
   const [debitPrefix, setDebitPrefix] = useState('');
 
   useEffect(() => {
-    value < 0 ? setDebit(-1) : setDebit(1);
-    value < 0 ? setDebitPrefix('-') : setDebitPrefix('');
+    value <= 0 ? setDebit(-1) : setDebit(1);
+    value <= 0 ? setDebitPrefix('-') : setDebitPrefix('');
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChangeDebit = useCallback(() => {
     if (debit < 0) {
       setDebit(1);
       setDebitPrefix('');
+      onChangeDebit(1);
     } else {
       setDebit(-1);
       setDebitPrefix('-');
+      onChangeDebit(-1);
     }
 
     if (onChangeText) {

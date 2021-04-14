@@ -141,18 +141,12 @@ export const getAllCategories = async () => {
 
 export const getDebitCategories = async () => {
   const realm = await getRealm();
-  return realm
-    .objects('Category')
-    .filtered('isDebit = true AND isInit = false')
-    .sorted('order');
+  return realm.objects('Category').filtered('isDebit = true').sorted('order');
 };
 
 export const getCreditCategories = async () => {
   const realm = await getRealm();
-  return realm
-    .objects('Category')
-    .filtered('isCredit = true AND isInit = false')
-    .sorted('order');
+  return realm.objects('Category').filtered('isCredit = true').sorted('order');
 };
 
 export const getInitCategories = async () => {

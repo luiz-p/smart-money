@@ -10,6 +10,7 @@ import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
 import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
+import ICategory from '../../interfaces/Category';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -31,9 +32,13 @@ const NewEntry: React.FC = () => {
   const [entry, setEntry] = useState<IEntry>({
     id: uuid(),
     amount: 0,
+    category: {id: undefined, name: 'Selecione'},
     entryAt: String(new Date()),
   });
-  const [amount, setAmount] = useState<number>(0);
+
+  const [debit, setDebit] = useState<number>(-1);
+  const [amount, setAmount] = useState<number>(entry.amount);
+  const [category, setCategory] = useState(entry.category);
 
   const isValid = useCallback(() => {
     if (amount !== 0) {
@@ -49,13 +54,14 @@ const NewEntry: React.FC = () => {
 
   const handleSave = useCallback(() => {
     const data = {
-      amount: amount,
+      amount,
+      category: category ? category : {id: undefined, name: 'outros'},
     };
 
     saveEntry(data, entry);
 
     goBack();
-  }, [amount, entry, goBack]);
+  }, [amount, category, entry, goBack]);
 
   const handleDelete = useCallback(() => {
     deleteEntry(entry);
@@ -66,6 +72,8 @@ const NewEntry: React.FC = () => {
     if (route?.params?.entry) {
       setEntry(route.params.entry);
       setAmount(route.params.entry.amount);
+      setDebit(route.params.entry.amount <= 0 ? -1 : 1);
+      setCategory(route.params.entry.category);
     }
   }, [route]);
 
@@ -74,8 +82,16 @@ const NewEntry: React.FC = () => {
       <BalanceLabel />
 
       <View>
-        <NewEntryInput value={amount} onChangeText={setAmount} />
-        <NewEntryCategoryPicker />
+        <NewEntryInput
+          value={amount}
+          onChangeDebit={setDebit}
+          onChangeText={setAmount}
+        />
+        <NewEntryCategoryPicker
+          debit={debit}
+          category={category}
+          onChangeCategory={setCategory}
+        />
 
         <Button title="GPS" onPress={() => {}} />
         <Button title="Câmera" onPress={() => {}} />

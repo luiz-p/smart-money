@@ -1,3 +1,5 @@
 export default interface ICategory {
-  color: string;
+  id?: string;
+  name?: string;
+  color?: string;
 }

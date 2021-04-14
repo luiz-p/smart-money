@@ -1,12 +1,14 @@
 import {Alert} from 'react-native';
 import Realm from 'realm';
 import {v4 as uuid} from 'uuid';
+import ICategory from '../interfaces/Category';
 
 import IEntry from '../interfaces/Entry';
 import {getRealm} from './Realm';
 
 interface IValue {
   amount: number;
+  category: ICategory;
 }
 
 export const getEntries = async () => {
@@ -27,6 +29,7 @@ export const saveEntry = async (value: IValue, entry: IEntry) => {
         id: entry.id || uuid(),
         amount: value.amount || entry.amount,
         entryAt: entry.entryAt || String(new Date()),
+        category: value.category || entry.category,
         isInit: false,
       };
 
