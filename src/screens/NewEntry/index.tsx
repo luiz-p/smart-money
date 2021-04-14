@@ -10,6 +10,7 @@ import NewEntryInput from '../../components/NewEntryInput';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
+import ICategory from '../../interfaces/Category';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -37,7 +38,10 @@ const NewEntry: React.FC = () => {
 
   const [debit, setDebit] = useState<number>(-1);
   const [amount, setAmount] = useState<number>(entry.amount);
-  const [category, setCategory] = useState(entry.category);
+  const [category, setCategory] = useState<ICategory>({
+    id: uuid(),
+    name: 'Selecione',
+  });
 
   const isValid = useCallback(() => {
     if (amount !== 0) {
@@ -72,7 +76,9 @@ const NewEntry: React.FC = () => {
       setEntry(route.params.entry);
       setAmount(route.params.entry.amount);
       setDebit(route.params.entry.amount <= 0 ? -1 : 1);
-      setCategory(route.params.entry.category);
+      if (route.params.entry?.category) {
+        setCategory(route.params.entry.category);
+      }
     }
   }, [route]);
 

@@ -9,9 +9,9 @@ import {
 import styles from './style';
 
 interface NewEntryCategoryPickerProps {
-  debit: any;
-  category: any;
-  onChangeCategory: React.Dispatch<React.SetStateAction<ICategory | undefined>>;
+  debit: number;
+  category: ICategory;
+  onChangeCategory: React.Dispatch<React.SetStateAction<ICategory>>;
 }
 
 const NewEntryCategoryPicker: React.FC<NewEntryCategoryPickerProps> = ({
