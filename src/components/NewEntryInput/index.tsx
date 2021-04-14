@@ -7,7 +7,7 @@ import styles from './style';
 interface NewEntryInputProps {
   value: number;
   onChangeDebit: React.Dispatch<React.SetStateAction<number>>;
-  onChangeText?: (text: number) => void;
+  onChangeText?: ((text: number) => void) | undefined;
 }
 
 const NewEntryInput: React.FC<NewEntryInputProps> = ({
@@ -37,7 +37,7 @@ const NewEntryInput: React.FC<NewEntryInputProps> = ({
     if (onChangeText) {
       onChangeText(value * -1);
     }
-  }, [debit, onChangeText, value]);
+  }, [debit, onChangeDebit, onChangeText, value]);
 
   return (
     <View style={styles.container}>

@@ -1,8 +1,8 @@
 import {Alert} from 'react-native';
 import Realm from 'realm';
 import {v4 as uuid} from 'uuid';
-import ICategory from '../interfaces/Category';
 
+import ICategory from '../interfaces/Category';
 import IEntry from '../interfaces/Entry';
 import {getRealm} from './Realm';
 

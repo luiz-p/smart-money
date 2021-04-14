@@ -1,16 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, Modal, Text, TouchableOpacity, View} from 'react-native';
 
+import ICategory from '../../interfaces/Category';
 import {
-  getDebitCategories,
   getCreditCategories,
+  getDebitCategories,
 } from '../../services/Categories';
 import styles from './style';
 
 interface NewEntryCategoryPickerProps {
   debit: any;
   category: any;
-  onChangeCategory: () => void;
+  onChangeCategory: React.Dispatch<React.SetStateAction<ICategory | undefined>>;
 }
 
 const NewEntryCategoryPicker: React.FC<NewEntryCategoryPickerProps> = ({
@@ -20,7 +21,7 @@ const NewEntryCategoryPicker: React.FC<NewEntryCategoryPickerProps> = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState<
-    Realm.Results<Realm.Object> | []
+    Realm.Results<ICategory & Realm.Object> | []
   >([]);
 
   useEffect(() => {

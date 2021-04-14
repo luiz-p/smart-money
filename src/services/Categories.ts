@@ -1,4 +1,5 @@
 import {v4 as uuid} from 'uuid';
+import ICategory from '../interfaces/Category';
 
 import {getRealm} from './Realm';
 
@@ -136,20 +137,29 @@ export const getDefaultCategories = () => {
 
 export const getAllCategories = async () => {
   const realm = await getRealm();
-  return realm.objects('Category').sorted('order');
+  return realm.objects<ICategory>('Category').sorted('order');
 };
 
 export const getDebitCategories = async () => {
   const realm = await getRealm();
-  return realm.objects('Category').filtered('isDebit = true').sorted('order');
+  return realm
+    .objects<ICategory>('Category')
+    .filtered('isDebit = true')
+    .sorted('order');
 };
 
 export const getCreditCategories = async () => {
   const realm = await getRealm();
-  return realm.objects('Category').filtered('isCredit = true').sorted('order');
+  return realm
+    .objects<ICategory>('Category')
+    .filtered('isCredit = true')
+    .sorted('order');
 };
 
 export const getInitCategories = async () => {
   const realm = await getRealm();
-  return realm.objects('Category').filtered('isInit = true').sorted('order');
+  return realm
+    .objects<ICategory>('Category')
+    .filtered('isInit = true')
+    .sorted('order');
 };

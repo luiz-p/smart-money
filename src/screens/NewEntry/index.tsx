@@ -1,16 +1,15 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, LogBox, TextInput, View} from 'react-native';
+import {Button, LogBox, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
+import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
 import NewEntryInput from '../../components/NewEntryInput';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
-import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
-import ICategory from '../../interfaces/Category';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -32,7 +31,7 @@ const NewEntry: React.FC = () => {
   const [entry, setEntry] = useState<IEntry>({
     id: uuid(),
     amount: 0,
-    category: {id: undefined, name: 'Selecione'},
+    category: {id: uuid(), name: 'Selecione'},
     entryAt: String(new Date()),
   });
 
@@ -55,7 +54,7 @@ const NewEntry: React.FC = () => {
   const handleSave = useCallback(() => {
     const data = {
       amount,
-      category: category ? category : {id: undefined, name: 'outros'},
+      category: category ? category : {id: uuid(), name: 'outros'},
     };
 
     saveEntry(data, entry);

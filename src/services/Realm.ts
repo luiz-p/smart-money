@@ -4,6 +4,7 @@ import {getDefaultCategories} from './Categories';
 
 import CategorySchema from '../schemas/CategorySchema';
 import EntrySchema from '../schemas/EntrySchema';
+import ICategory from '../interfaces/Category';
 
 export const getRealm = async () => {
   const realm = await Realm.open({
@@ -18,7 +19,7 @@ export const getRealm = async () => {
 };
 
 export const initDB = (realm: Realm) => {
-  const categoriesLength = realm.objects('Category').length;
+  const categoriesLength = realm.objects<ICategory>('Category').length;
   console.log(`initDB :: categories length: ${categoriesLength}`);
 
   if (categoriesLength === 0) {
@@ -33,7 +34,7 @@ export const initDB = (realm: Realm) => {
             `initDB :: creating category: ${JSON.stringify(category)}`,
           );
 
-          realm.create('Category', category, Realm.UpdateMode.All);
+          realm.create('Category', {category}, Realm.UpdateMode.All);
         });
       });
     } catch (error) {}
