@@ -9,6 +9,7 @@ import NewEntryInput from '../../components/NewEntryInput';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
+import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -74,8 +75,8 @@ const NewEntry: React.FC = () => {
 
       <View>
         <NewEntryInput value={amount} onChangeText={setAmount} />
+        <NewEntryCategoryPicker />
 
-        <TextInput style={styles.input} />
         <Button title="GPS" onPress={() => {}} />
         <Button title="Câmera" onPress={() => {}} />
       </View>
