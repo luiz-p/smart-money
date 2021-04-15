@@ -18,6 +18,7 @@ export default StyleSheet.create({
   },
   actionContainer: {
     flexDirection: 'row',
+    marginTop: 5,
   },
   actionLabel: {
     flex: 1,

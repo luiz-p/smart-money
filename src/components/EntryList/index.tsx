@@ -35,7 +35,8 @@ const EntryList: React.FC = () => {
       onPressActionButton={() => navigation.navigate('Report')}>
       <FlatList // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
         data={entries}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <EntryListItem
             entry={item}

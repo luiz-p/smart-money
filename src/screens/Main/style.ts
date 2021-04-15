@@ -7,7 +7,11 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
   },
-  label: {
-    fontSize: 20,
+  balancePanel: {
+    marginBottom: -20,
+  },
+  entryList: {
+    flex: 1,
+    marginBottom: 42,
   },
 });
