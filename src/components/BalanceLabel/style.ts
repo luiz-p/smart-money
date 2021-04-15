@@ -4,6 +4,7 @@ import Colors from '../../utils/Colors';
 export default StyleSheet.create({
   container: {
     alignItems: 'center',
+    padding: 20,
   },
   label: {
     fontSize: 12,

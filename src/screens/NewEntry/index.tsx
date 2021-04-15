@@ -1,10 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, LogBox, View} from 'react-native';
+import {LogBox, View} from 'react-native';
 import {v4 as uuid} from 'uuid';
 
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
+import ActionFooter, {
+  ActionPrimaryButton,
+  ActionSecondaryButton,
+} from '../../components/Core/ActionFooter';
 import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
 import NewEntryDatePicker from '../../components/NewEntryDatePicker';
 import NewEntryDeleteAction from '../../components/NewEntryDeleteAction';
@@ -110,13 +114,15 @@ const NewEntry: React.FC = () => {
       </View>
 
       <View>
-        <Button
-          title="Adicionar"
-          onPress={() => {
-            isValid() && handleSave();
-          }}
-        />
-        <Button title="Cancelar" onPress={goBack} />
+        <ActionFooter>
+          <ActionPrimaryButton
+            title={entry.id ? 'Salvar' : 'Adicionar'}
+            onPress={() => {
+              isValid() && handleSave();
+            }}
+          />
+          <ActionSecondaryButton title="Cancelar" onPress={goBack} />
+        </ActionFooter>
       </View>
     </View>
   );
