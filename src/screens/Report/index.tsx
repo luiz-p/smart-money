@@ -1,18 +1,20 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 import {Picker} from '@react-native-community/picker';
+import {useNavigation} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
 import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
+import styles from './style';
 
 const Report: React.FC = () => {
-  const currentBalance = 2064.35;
+  const navigation = useNavigation();
 
   return (
-    <View>
-      <BalanceLabel currentBalance={currentBalance} />
+    <View style={styles.container}>
+      <BalanceLabel />
 
       <View>
         <Picker>
@@ -25,16 +27,20 @@ const Report: React.FC = () => {
       </View>
 
       <EntrySummary />
-      <EntryList />
+
+      <View style={styles.entryList}>
+        <EntryList />
+      </View>
 
       <View>
-        <Button title="Salvar" onPress={() => {}} />
-        <Button title="Fechar" onPress={() => {}} />
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={() => navigation.goBack()}>
+          <Text style={styles.closeButtonText}>Fechar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Report;
