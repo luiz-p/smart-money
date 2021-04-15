@@ -4,6 +4,7 @@ import {v4 as uuid} from 'uuid';
 
 import ICategory from '../interfaces/Category';
 import IEntry from '../interfaces/Entry';
+import moment from '../Vendors/moment';
 import {getRealm} from './Realm';
 
 interface IValue {
@@ -12,10 +13,18 @@ interface IValue {
   entryAt: Date;
 }
 
-export const getEntries = async () => {
-  const realm = await getRealm();
+export const getEntries = async (days: number) => {
+  let realm = await getRealm();
 
-  const entries = realm.objects<IEntry>('Entry').sorted('entryAt', true);
+  let _realm = realm.objects<IEntry>('Entry');
+
+  if (days > 0) {
+    const date = moment().subtract(days, 'days').toDate();
+
+    _realm = _realm.filtered('entryAt >= $0', date);
+  }
+
+  const entries = _realm.sorted('entryAt', true);
 
   return entries;
 };

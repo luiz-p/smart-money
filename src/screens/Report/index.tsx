@@ -19,10 +19,15 @@ const Report: React.FC = () => {
       <View>
         <Picker>
           <Picker.Item label="Todas Categorias" value={''} />
+          <Picker.Item label="1" value={''} />
+          <Picker.Item label="2" value={''} />
+          <Picker.Item label="3" value={''} />
         </Picker>
 
         <Picker>
           <Picker.Item label="Últimos 7 dias" value={''} />
+          <Picker.Item label="Últimos 15 dias" value={''} />
+          <Picker.Item label="Últimos 21 dias" value={''} />
         </Picker>
       </View>
 

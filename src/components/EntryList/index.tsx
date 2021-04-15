@@ -8,7 +8,11 @@ import {getEntries} from '../../services/Entries';
 import Container from '../Core/Container';
 import EntryListItem from '../EntryListItem';
 
-const EntryList: React.FC = () => {
+interface EntryListProps {
+  days?: number;
+}
+
+const EntryList: React.FC<EntryListProps> = ({days = 7}) => {
   const navigation = useNavigation();
 
   const [entries, setEntries] = useState<
@@ -16,9 +20,9 @@ const EntryList: React.FC = () => {
   >();
 
   const loadEntries = useCallback(async () => {
-    const data = await getEntries();
+    const data = await getEntries(days);
     setEntries(data);
-  }, []);
+  }, [days]);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -30,7 +34,7 @@ const EntryList: React.FC = () => {
   return (
     <Container
       title="Últimos lançamentos"
-      actionLabelText="Últimos 7 dias"
+      actionLabelText={`Últimos ${days} dias`}
       actionButtonText="Ver mais"
       onPressActionButton={() => navigation.navigate('Report')}>
       <FlatList // TODO: item.entryAt is Non-serializable value but RealmDB requires a date value
