@@ -1,7 +1,7 @@
 import ICategory from './Category';
 
 export default interface IEntry {
-  id: string;
+  id: string | null;
   description?: string;
   amount: number;
   entryAt: string;

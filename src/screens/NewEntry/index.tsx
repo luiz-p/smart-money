@@ -6,12 +6,13 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
 import BalanceLabel from '../../components/BalanceLabel';
 import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
+import NewEntryDatePicker from '../../components/NewEntryDatePicker';
+import NewEntryDeleteAction from '../../components/NewEntryDeleteAction';
 import NewEntryInput from '../../components/NewEntryInput';
+import ICategory from '../../interfaces/Category';
 import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
-import ICategory from '../../interfaces/Category';
-import NewEntryDatePicker from '../../components/NewEntryDatePicker';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -31,7 +32,7 @@ const NewEntry: React.FC = () => {
   const route = useRoute<RouteProp<ParamList, 'Entry'>>();
 
   const [entry, setEntry] = useState<IEntry>({
-    id: uuid(),
+    id: null,
     amount: 0,
     category: {id: uuid(), name: 'Selecione'},
     entryAt: String(new Date()),
@@ -104,6 +105,7 @@ const NewEntry: React.FC = () => {
 
         <View style={styles.formActionContainer}>
           <NewEntryDatePicker value={entryAt} onChange={setEntryAt} />
+          <NewEntryDeleteAction onOkPress={handleDelete} entry={entry} />
         </View>
       </View>
 
@@ -114,7 +116,6 @@ const NewEntry: React.FC = () => {
             isValid() && handleSave();
           }}
         />
-        <Button title="Excluir" onPress={handleDelete} />
         <Button title="Cancelar" onPress={goBack} />
       </View>
     </View>

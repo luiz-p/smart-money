@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 59,
     height: 59,
-    backgroundColor: Colors.asphalt,
+    backgroundColor: Colors.red,
     borderRadius: 150,
     margin: 2,
   },
