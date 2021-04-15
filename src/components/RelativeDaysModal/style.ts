@@ -1,27 +1,24 @@
 import {StyleSheet} from 'react-native';
+
 import Colors from '../../utils/Colors';
 
 export default StyleSheet.create({
-  container: {
+  modal: {
     flex: 1,
     backgroundColor: Colors.background,
   },
-  filterButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    borderColor: Colors.champagneDark,
-    borderWidth: 1,
-    borderRadius: 25,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginRight: 5,
+  modalItem: {
+    alignItems: 'center',
+    backgroundColor: Colors.asphalt,
+    borderRadius: 15,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
-  filterButtonText: {
-    color: Colors.champagneDark,
-  },
-  entryList: {
-    flex: 1,
-    marginBottom: 42,
+  modalItemText: {
+    fontSize: 22,
+    color: Colors.white,
   },
   closeButton: {
     alignItems: 'center',

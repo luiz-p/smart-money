@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {Picker} from '@react-native-community/picker';
 import {useNavigation} from '@react-navigation/native';
@@ -7,34 +8,57 @@ import {useNavigation} from '@react-navigation/native';
 import BalanceLabel from '../../components/BalanceLabel';
 import EntryList from '../../components/EntryList';
 import EntrySummary from '../../components/EntrySummary';
+import RelativeDaysModal from '../../components/RelativeDaysModal';
+import Colors from '../../utils/Colors';
 import styles from './style';
 
 const Report: React.FC = () => {
   const navigation = useNavigation();
+
+  const [showModal, setShowModal] = useState(false);
+  const [relativeDays, setRelativeDays] = useState<number>(7);
+
+  const onCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
+  const onModalItemPress = useCallback(
+    (item: number) => {
+      setRelativeDays(item);
+      onCloseModal();
+    },
+    [onCloseModal],
+  );
 
   return (
     <View style={styles.container}>
       <BalanceLabel />
 
       <View>
-        <Picker>
-          <Picker.Item label="Todas Categorias" value={''} />
-          <Picker.Item label="1" value={''} />
-          <Picker.Item label="2" value={''} />
-          <Picker.Item label="3" value={''} />
-        </Picker>
+        <TouchableOpacity
+          style={styles.filterButton}
+          onPress={() => setShowModal(true)}>
+          <Text style={styles.filterButtonText}>
+            {relativeDays === 1 ? 'Último dia' : `Últimos ${relativeDays} dias`}
+          </Text>
+          <Icon
+            name="keyboard-arrow-down"
+            size={20}
+            color={Colors.champagneDark}
+          />
+        </TouchableOpacity>
 
-        <Picker>
-          <Picker.Item label="Últimos 7 dias" value={''} />
-          <Picker.Item label="Últimos 15 dias" value={''} />
-          <Picker.Item label="Últimos 21 dias" value={''} />
-        </Picker>
+        <RelativeDaysModal
+          isVisible={showModal}
+          onConfirm={onModalItemPress}
+          onCancel={onCloseModal}
+        />
       </View>
 
       <EntrySummary />
 
       <View style={styles.entryList}>
-        <EntryList />
+        <EntryList days={relativeDays} />
       </View>
 
       <View>
