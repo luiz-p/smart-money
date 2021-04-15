@@ -13,7 +13,7 @@ interface IValue {
   entryAt: Date;
 }
 
-export const getEntries = async (days: number) => {
+export const getEntries = async (days: number, category: ICategory) => {
   let realm = await getRealm();
 
   let _realm = realm.objects<IEntry>('Entry');
@@ -22,6 +22,10 @@ export const getEntries = async (days: number) => {
     const date = moment().subtract(days, 'days').toDate();
 
     _realm = _realm.filtered('entryAt >= $0', date);
+  }
+
+  if (category && category.id) {
+    _realm = _realm.filtered('category == $0', category);
   }
 
   const entries = _realm.sorted('entryAt', true);

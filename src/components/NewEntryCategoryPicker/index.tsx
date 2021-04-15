@@ -1,11 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, Modal, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
+import CategoryModal from '../../components/CategoryModal';
 import ICategory from '../../interfaces/Category';
-import {
-  getCreditCategories,
-  getDebitCategories,
-} from '../../services/Categories';
 import styles from './style';
 
 interface NewEntryCategoryPickerProps {
@@ -20,23 +17,6 @@ const NewEntryCategoryPicker: React.FC<NewEntryCategoryPickerProps> = ({
   onChangeCategory,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  const [categories, setCategories] = useState<
-    Realm.Results<ICategory & Realm.Object> | []
-  >([]);
-
-  useEffect(() => {
-    (async () => {
-      let data;
-
-      if (debit <= 0) {
-        data = await getDebitCategories();
-      } else {
-        data = await getCreditCategories();
-      }
-
-      setCategories(data);
-    })();
-  }, [debit]);
 
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
@@ -58,29 +38,12 @@ const NewEntryCategoryPicker: React.FC<NewEntryCategoryPickerProps> = ({
         <Text style={styles.pickerButtonText}>{category.name}</Text>
       </TouchableOpacity>
 
-      <Modal animationType="slide" transparent={false} visible={showModal}>
-        <View style={styles.modal}>
-          <FlatList
-            data={categories}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                style={styles.modalItem}
-                onPress={() => handleCategoryPress(item)}>
-                <Text style={[styles.modalItemText, {color: item.color}]}>
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            )}
-          />
-
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={handleCloseModal}>
-            <Text style={styles.closeButtonText}>Fechar</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <CategoryModal
+        categoryType={debit === -1 ? 'debit' : 'credit'}
+        isVisible={showModal}
+        onConfirm={handleCategoryPress}
+        onCancel={handleCloseModal}
+      />
     </View>
   );
 };

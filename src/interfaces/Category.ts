@@ -1,7 +1,7 @@
 import IEntry from './Entry';
 
 export default interface ICategory {
-  id: string;
+  id: string | null;
   color?: string;
   name?: string;
   isDefault?: boolean;

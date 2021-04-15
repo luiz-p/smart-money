@@ -7,12 +7,14 @@ import IEntry from '../../interfaces/Entry';
 import {getEntries} from '../../services/Entries';
 import Container from '../Core/Container';
 import EntryListItem from '../EntryListItem';
+import ICategory from '../../interfaces/Category';
 
 interface EntryListProps {
   days?: number;
+  category: ICategory;
 }
 
-const EntryList: React.FC<EntryListProps> = ({days = 7}) => {
+const EntryList: React.FC<EntryListProps> = ({days = 7, category}) => {
   const navigation = useNavigation();
 
   const [entries, setEntries] = useState<
@@ -20,9 +22,9 @@ const EntryList: React.FC<EntryListProps> = ({days = 7}) => {
   >();
 
   const loadEntries = useCallback(async () => {
-    const data = await getEntries(days);
+    const data = await getEntries(days, category);
     setEntries(data);
-  }, [days]);
+  }, [category, days]);
 
   useEffect(() => {
     loadEntries();
