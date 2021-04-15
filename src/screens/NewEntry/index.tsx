@@ -11,6 +11,7 @@ import IEntry from '../../interfaces/Entry';
 import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
 import ICategory from '../../interfaces/Category';
+import NewEntryDatePicker from '../../components/NewEntryDatePicker';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
 LogBox.ignoreLogs([
@@ -42,6 +43,7 @@ const NewEntry: React.FC = () => {
     id: uuid(),
     name: 'Selecione',
   });
+  const [entryAt, setEntryAt] = useState(new Date());
 
   const isValid = useCallback(() => {
     if (amount !== 0) {
@@ -59,12 +61,13 @@ const NewEntry: React.FC = () => {
     const data = {
       amount,
       category: category ? category : {id: uuid(), name: 'outros'},
+      entryAt,
     };
 
     saveEntry(data, entry);
 
     goBack();
-  }, [amount, category, entry, goBack]);
+  }, [amount, category, entry, entryAt, goBack]);
 
   const handleDelete = useCallback(() => {
     deleteEntry(entry);
@@ -76,6 +79,7 @@ const NewEntry: React.FC = () => {
       setEntry(route.params.entry);
       setAmount(route.params.entry.amount);
       setDebit(route.params.entry.amount <= 0 ? -1 : 1);
+      setEntryAt(new Date(route.params.entry.entryAt));
       if (route.params.entry?.category) {
         setCategory(route.params.entry.category);
       }
@@ -86,7 +90,7 @@ const NewEntry: React.FC = () => {
     <View style={styles.container}>
       <BalanceLabel />
 
-      <View>
+      <View style={styles.formContainer}>
         <NewEntryInput
           value={amount}
           onChangeDebit={setDebit}
@@ -98,8 +102,9 @@ const NewEntry: React.FC = () => {
           onChangeCategory={setCategory}
         />
 
-        <Button title="GPS" onPress={() => {}} />
-        <Button title="Câmera" onPress={() => {}} />
+        <View style={styles.formActionContainer}>
+          <NewEntryDatePicker value={entryAt} onChange={setEntryAt} />
+        </View>
       </View>
 
       <View>

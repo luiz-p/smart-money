@@ -9,12 +9,13 @@ import {getRealm} from './Realm';
 interface IValue {
   amount: number;
   category: ICategory;
+  entryAt: Date;
 }
 
 export const getEntries = async () => {
   const realm = await getRealm();
 
-  const entries = realm.objects<IEntry>('Entry');
+  const entries = realm.objects<IEntry>('Entry').sorted('entryAt', true);
 
   return entries;
 };
@@ -28,7 +29,8 @@ export const saveEntry = async (value: IValue, entry: IEntry) => {
       data = {
         id: entry.id || uuid(),
         amount: value.amount || entry.amount,
-        entryAt: entry.entryAt || String(new Date()),
+        entryAt: value.entryAt || entry.entryAt,
+        description: value.category.name,
         category: value.category || entry.category,
         isInit: false,
       };
