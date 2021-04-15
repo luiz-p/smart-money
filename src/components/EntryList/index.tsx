@@ -25,11 +25,15 @@ const EntryList: React.FC<EntryListProps> = ({days = 7}) => {
   }, [days]);
 
   useEffect(() => {
+    loadEntries();
+  }, [loadEntries]);
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       loadEntries();
     });
     return unsubscribe;
-  }, [navigation, loadEntries]);
+  }, [loadEntries, navigation]);
 
   return (
     <Container
