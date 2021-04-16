@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, Modal, Text, TouchableOpacity, View} from 'react-native';
 
+import useCategories from '../../hooks/useCategories';
 import ICategory from '../../interfaces/Category';
-import {
-  getCreditCategories,
-  getDebitCategories,
-  getAllCategories,
-} from '../../services/Categories';
+
 import styles from './style';
 
 interface CategoryModalProps {
@@ -22,37 +19,19 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const [categories, setCategories] = useState<
-    Realm.Results<ICategory & Realm.Object> | []
-  >([]);
-
-  useEffect(() => {
-    (async () => {
-      let data;
-
-      if (categoryType === 'all') {
-        data = await getAllCategories();
-      }
-
-      if (categoryType === 'debit') {
-        data = await getDebitCategories();
-      }
-
-      if (categoryType === 'credit') {
-        data = await getCreditCategories();
-      }
-
-      if (data) {
-        setCategories(data);
-      }
-    })();
-  }, [categoryType]);
+  const [debitCategories, creditCategories, allCategories] = useCategories();
 
   return (
     <Modal animationType="slide" transparent={false} visible={isVisible}>
       <View style={styles.modal}>
         <FlatList
-          data={categories}
+          data={
+            categoryType === 'all'
+              ? allCategories
+              : categoryType === 'debit'
+              ? debitCategories
+              : creditCategories
+          }
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             <TouchableOpacity

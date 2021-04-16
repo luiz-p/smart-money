@@ -8,6 +8,7 @@ const CategorySchema = {
     isDefault: {type: 'bool', default: false},
     isCredit: {type: 'bool', default: false},
     isDebit: {type: 'bool', default: false},
+    isInit: {type: 'bool', default: false},
     order: {type: 'int', default: 0},
     entries: 'Entry[]',
   },

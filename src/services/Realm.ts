@@ -9,7 +9,7 @@ import ICategory from '../interfaces/Category';
 export const getRealm = async () => {
   const realm = await Realm.open({
     schema: [CategorySchema, EntrySchema],
-    schemaVersion: 8,
+    schemaVersion: 10,
   });
 
   // dropDB(realm);
