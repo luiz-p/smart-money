@@ -13,9 +13,10 @@ import NewEntryCategoryPicker from '../../components/NewEntryCategoryPicker';
 import NewEntryDatePicker from '../../components/NewEntryDatePicker';
 import NewEntryDeleteAction from '../../components/NewEntryDeleteAction';
 import NewEntryInput from '../../components/NewEntryInput';
+import useEntries from '../../hooks/useEntries';
 import ICategory from '../../interfaces/Category';
 import IEntry from '../../interfaces/Entry';
-import {deleteEntry, saveEntry} from '../../services/Entries';
+// import {deleteEntry, saveEntry} from '../../services/Entries';
 import styles from './style';
 
 // TODO: route.params.entry is Non-serializable value but RealmDB requires a date value
@@ -34,6 +35,7 @@ interface ParamListItem {
 const NewEntry: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<ParamList, 'Entry'>>();
+  const [, saveEntry, deleteEntry] = useEntries();
 
   const [entry, setEntry] = useState<IEntry>({
     id: null,
@@ -71,7 +73,7 @@ const NewEntry: React.FC = () => {
       index: 1,
       routes: [{name: 'Main'}],
     });
-  }, [amount, category, entry, entryAt, navigation]);
+  }, [amount, category, entry, entryAt, navigation, saveEntry]);
 
   const handleDelete = useCallback(() => {
     deleteEntry(entry);
@@ -80,7 +82,7 @@ const NewEntry: React.FC = () => {
       index: 1,
       routes: [{name: 'Main'}],
     });
-  }, [entry, navigation]);
+  }, [deleteEntry, entry, navigation]);
 
   useEffect(() => {
     if (route?.params?.entry) {

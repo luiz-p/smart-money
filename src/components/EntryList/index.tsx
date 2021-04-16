@@ -1,13 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
-import IEntry from '../../interfaces/Entry';
-import {getEntries} from '../../services/Entries';
+import useEntries from '../../hooks/useEntries';
+import ICategory from '../../interfaces/Category';
 import Container from '../Core/Container';
 import EntryListItem from '../EntryListItem';
-import ICategory from '../../interfaces/Category';
 
 interface EntryListProps {
   days?: number;
@@ -17,25 +16,7 @@ interface EntryListProps {
 const EntryList: React.FC<EntryListProps> = ({days = 7, category}) => {
   const navigation = useNavigation();
 
-  const [entries, setEntries] = useState<
-    Realm.Results<IEntry & Realm.Object>
-  >();
-
-  const loadEntries = useCallback(async () => {
-    const data = await getEntries(days, category);
-    setEntries(data);
-  }, [category, days]);
-
-  useEffect(() => {
-    loadEntries();
-  }, [loadEntries]);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      loadEntries();
-    });
-    return unsubscribe;
-  }, [loadEntries, navigation]);
+  const [entries] = useEntries(days, category);
 
   return (
     <Container
