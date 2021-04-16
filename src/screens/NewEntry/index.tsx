@@ -58,10 +58,6 @@ const NewEntry: React.FC = () => {
     }
   }, [amount]);
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
   const handleSave = useCallback(() => {
     const data = {
       amount,
@@ -71,13 +67,20 @@ const NewEntry: React.FC = () => {
 
     saveEntry(data, entry);
 
-    goBack();
-  }, [amount, category, entry, entryAt, goBack]);
+    navigation.reset({
+      index: 1,
+      routes: [{name: 'Main'}],
+    });
+  }, [amount, category, entry, entryAt, navigation]);
 
   const handleDelete = useCallback(() => {
     deleteEntry(entry);
-    goBack();
-  }, [entry, goBack]);
+
+    navigation.reset({
+      index: 1,
+      routes: [{name: 'Main'}],
+    });
+  }, [entry, navigation]);
 
   useEffect(() => {
     if (route?.params?.entry) {
@@ -121,7 +124,10 @@ const NewEntry: React.FC = () => {
               isValid() && handleSave();
             }}
           />
-          <ActionSecondaryButton title="Cancelar" onPress={goBack} />
+          <ActionSecondaryButton
+            title="Cancelar"
+            onPress={() => navigation.goBack()}
+          />
         </ActionFooter>
       </View>
     </View>

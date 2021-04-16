@@ -4,9 +4,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Colors from '../../utils/Colors';
 import styles from './style';
+import useBalance from '../../hooks/useBalance';
 
 const BalanceLabel: React.FC = () => {
-  const currentBalance = 2064.35;
+  const [balance] = useBalance();
 
   return (
     <View style={styles.container}>
@@ -15,7 +16,7 @@ const BalanceLabel: React.FC = () => {
       <LinearGradient
         style={styles.panel}
         colors={[Colors.violet, Colors.blue]}>
-        <Text style={styles.value}>R$ {currentBalance}</Text>
+        <Text style={styles.value}>R$ {balance}</Text>
       </LinearGradient>
     </View>
   );

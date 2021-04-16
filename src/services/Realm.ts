@@ -9,7 +9,7 @@ import ICategory from '../interfaces/Category';
 export const getRealm = async () => {
   const realm = await Realm.open({
     schema: [CategorySchema, EntrySchema],
-    schemaVersion: 3,
+    schemaVersion: 8,
   });
 
   // dropDB(realm);
@@ -34,7 +34,7 @@ export const initDB = (realm: Realm) => {
             `initDB :: creating category: ${JSON.stringify(category)}`,
           );
 
-          realm.create('Category', {category}, Realm.UpdateMode.All);
+          realm.create('Category', category, Realm.UpdateMode.All);
         });
       });
     } catch (error) {}

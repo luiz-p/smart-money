@@ -11,7 +11,9 @@ export default StyleSheet.create({
     color: Colors.white,
   },
   panel: {
+    alignItems: 'center',
     borderRadius: 10,
+    minWidth: 200,
     paddingVertical: 10,
     paddingHorizontal: 30,
     marginVertical: 10,

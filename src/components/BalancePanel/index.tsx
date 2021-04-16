@@ -13,14 +13,12 @@ import styles from './style';
 const BalancePanel: React.FC = () => {
   const navigation = useNavigation();
 
-  const currentBalance = 2064.35;
-
   return (
     <View style={styles.container}>
       <LinearGradient
         colors={[Colors.violet, Colors.blue]}
         style={styles.panel}>
-        <BalancePanelLabel currentBalance={currentBalance} />
+        <BalancePanelLabel />
         <BalancePanelChart />
       </LinearGradient>
 
