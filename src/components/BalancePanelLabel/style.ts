@@ -10,6 +10,7 @@ export default StyleSheet.create({
     color: Colors.white,
   },
   value: {
+    zIndex: 999,
     fontSize: 36,
     color: Colors.white,
   },

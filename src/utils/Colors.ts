@@ -7,6 +7,7 @@ export default {
   greenDark: '#27ae60',
   blue: '#3498db',
   blueDark: '#2980b9',
+  blueChart: '#2575aa',
   violet: '#9b59b6',
   violetDark: '#8e44ad',
   yellow: '#f1c40f',
